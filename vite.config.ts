@@ -13,19 +13,11 @@ const useBabel = true;
  */
 const sourceMapsInProduction = false;
 
-/**
- * Enable or disable CSS code splitting. When enabled, CSS imported in async chunks will be inlined into the async
- * chunk itself and inserted when the chunk is loaded. If disabled, all CSS in the entire project will be extracted
- * into a single CSS file.
- */
-const cssCodeSplit = true;
-
 /*********************************************************************************************************************/
 /**********                                              Vite                                               **********/
 /*********************************************************************************************************************/
 
 import { defineConfig, UserConfig } from 'vite';
-
 import path from 'path';
 import svelte from 'rollup-plugin-svelte';
 import sveltePreprocess from 'svelte-preprocess';
@@ -34,20 +26,18 @@ import autoprefixer from 'autoprefixer';
 import pkg from './package.json';
 import tsconfig from './tsconfig.json';
 
-const isProduction = process.env.NODE_ENV === 'production';
-const isDevelopment = !isProduction;
-
+const production = process.env.NODE_ENV === 'production';
 const config = <UserConfig> defineConfig({
 	plugins: [
 		svelte({
-			emitCss: isProduction,
+			emitCss: production,
 			preprocess: sveltePreprocess(),
 			compilerOptions: {
-				dev: isDevelopment,
+				dev: !production,
 			},
 
 			// @ts-ignore This is temporary until the type definitions are fixed!
-			hot: isDevelopment
+			hot: !production
 		}),
 	],
 	server: {
@@ -55,8 +45,7 @@ const config = <UserConfig> defineConfig({
 		port: 5000
 	},
 	build: {
-		sourcemap: sourceMapsInProduction,
-		cssCodeSplit
+		sourcemap: sourceMapsInProduction
 	},
 	css: {
 		postcss: {

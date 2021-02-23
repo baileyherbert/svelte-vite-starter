@@ -1,4 +1,13 @@
 /**
+ * Babel will compile modern JavaScript down to a format compatible with older browsers, but it will also increase your
+ * final bundle size and build speed. Edit the `browserslist` property in the package.json file to define which
+ * browsers Babel should target.
+ *
+ * Browserslist documentation: https://github.com/browserslist/browserslist#browserslist-
+ */
+const useBabel = true;
+
+/**
  * Change this to `true` to generate source maps alongside your production bundle. This is useful for debugging, but
  * will increase total bundle size and expose your source code.
  */
@@ -15,11 +24,9 @@ const cssCodeSplit = true;
 /**********                                              Vite                                               **********/
 /*********************************************************************************************************************/
 
-import { defineConfig } from 'vite';
+import { defineConfig, UserConfig } from 'vite';
 
 import path from 'path';
-import fs from 'fs';
-
 import svelte from 'rollup-plugin-svelte';
 import sveltePreprocess from 'svelte-preprocess';
 import legacy from '@vitejs/plugin-legacy';
@@ -30,11 +37,8 @@ import tsconfig from './tsconfig.json';
 const isProduction = process.env.NODE_ENV === 'production';
 const isDevelopment = !isProduction;
 
-const config = defineConfig({
+const config = <UserConfig> defineConfig({
 	plugins: [
-		legacy({
-			targets: pkg.browserslist
-		}),
 		svelte({
 			emitCss: isProduction,
 			preprocess: sveltePreprocess(),
@@ -63,25 +67,32 @@ const config = defineConfig({
 	}
 });
 
+// Babel
+if (useBabel) {
+	config.plugins.unshift(
+		legacy({
+			targets: pkg.browserslist
+		})
+	);
+}
+
 // Load path aliases from the tsconfig.json file
-if (typeof config === 'object') {
-	const aliases = tsconfig.compilerOptions.paths;
+const aliases = tsconfig.compilerOptions.paths;
 
-	for (const alias in aliases) {
-		const paths = aliases[alias].map((p: string) => path.resolve(__dirname, p));
+for (const alias in aliases) {
+	const paths = aliases[alias].map((p: string) => path.resolve(__dirname, p));
 
-		// Our tsconfig uses glob path formats, whereas webpack just wants directories
-		// We'll need to transform the glob format into a format acceptable to webpack
+	// Our tsconfig uses glob path formats, whereas webpack just wants directories
+	// We'll need to transform the glob format into a format acceptable to webpack
 
-		const wpAlias = alias.replace(/(\\|\/)\*$/, '');
-		const wpPaths = paths.map((p: string) => p.replace(/(\\|\/)\*$/, ''));
+	const wpAlias = alias.replace(/(\\|\/)\*$/, '');
+	const wpPaths = paths.map((p: string) => p.replace(/(\\|\/)\*$/, ''));
 
-		if (!config.resolve) config.resolve = {};
-		if (!config.resolve.alias) config.resolve.alias = {};
+	if (!config.resolve) config.resolve = {};
+	if (!config.resolve.alias) config.resolve.alias = {};
 
-		if (config.resolve && config.resolve.alias && !(wpAlias in config.resolve.alias)) {
-			config.resolve.alias[wpAlias] = wpPaths.length > 1 ? wpPaths : wpPaths[0];
-		}
+	if (config.resolve && config.resolve.alias && !(wpAlias in config.resolve.alias)) {
+		config.resolve.alias[wpAlias] = wpPaths.length > 1 ? wpPaths : wpPaths[0];
 	}
 }
 

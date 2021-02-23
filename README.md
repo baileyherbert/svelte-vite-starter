@@ -10,6 +10,7 @@ TypeScript, SCSS, Babel, Autoprefixer, and HMR.
 - [Usage](#usage)
   - [Global stylesheets](#global-stylesheets)
   - [Browsers list](#browsers-list)
+  - [Babel customization](#babel-customization)
   - [Source maps in production](#source-maps-in-production)
   - [Import path aliases](#import-path-aliases)
 
@@ -75,6 +76,14 @@ The bundle will be compiled to run on the browsers specified in `package.json`:
 
 If you wish to customize this, please refer to the list of
 [example browserslist queries](https://github.com/browserslist/browserslist#full-list).
+
+### Babel customization
+
+Production builds are compiled with Babel automatically. If you wish to disable it, edit the `vite.config.ts` file:
+
+```ts
+const useBabel = false;
+```
 
 ### Source maps in production
 

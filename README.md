@@ -14,6 +14,8 @@ TypeScript, SCSS, Babel, Autoprefixer, and HMR.
   - [Source maps in production](#source-maps-in-production)
   - [Import path aliases](#import-path-aliases)
 
+> ⚠ **Consider trying the new vite-based [SvelteKit](https://kit.svelte.dev/)!**
+
 ---
 
 ## Getting started

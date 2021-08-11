@@ -18,8 +18,8 @@ const sourceMapsInProduction = false;
 /*********************************************************************************************************************/
 
 import { defineConfig, UserConfig } from 'vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 import path from 'path';
-import svelte from 'rollup-plugin-svelte';
 import sveltePreprocess from 'svelte-preprocess';
 import legacy from '@vitejs/plugin-legacy';
 import autoprefixer from 'autoprefixer';

@@ -36,8 +36,10 @@ const config = <UserConfig> defineConfig({
 				dev: !production,
 			},
 
-			// @ts-ignore This is temporary until the type definitions are fixed!
-			hot: !production
+			hot: !production ? {
+				injectCss: true,
+				partialAccept: true
+			} : false
 		}),
 	],
 	server: {
@@ -58,7 +60,7 @@ const config = <UserConfig> defineConfig({
 
 // Babel
 if (useBabel) {
-	config.plugins.unshift(
+	config.plugins?.unshift(
 		legacy({
 			targets: pkg.browserslist
 		})

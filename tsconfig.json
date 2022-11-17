@@ -20,7 +20,8 @@
 			"svelte/motion",
 			"svelte/transition",
 			"svelte/animate",
-			"svelte/easing"
+			"svelte/easing",
+			"vite/client"
 		]
 	}
 }

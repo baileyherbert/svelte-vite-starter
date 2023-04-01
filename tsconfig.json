@@ -2,9 +2,10 @@
 	"include": ["src/**/*", "webpack.config.ts"],
 	"exclude": ["node_modules/*", "__sapper__/*", "public/*"],
 	"compilerOptions": {
-		"moduleResolution": "node",
-		"target": "es2017",
-		"module": "es2020",
+		"moduleResolution": "node16",
+		"target": "es2022",
+		"lib": ["es2022", "dom"],
+		"module": "es2022",
 		"importsNotUsedAsValues": "remove",
 		"isolatedModules": true,
 		"esModuleInterop": true,

@@ -14,15 +14,14 @@ TypeScript, SCSS, Babel, Autoprefixer, and HMR.
   - [Source maps in production](#source-maps-in-production)
   - [Import path aliases](#import-path-aliases)
 
-> ⚠ **Consider trying the new vite-based [SvelteKit](https://kit.svelte.dev/)!**
-
 ---
 
 ## Getting started
 
 ### Installation
 
-Pull the template files with [`degit`](https://github.com/Rich-Harris/degit) and install dependencies.
+Pull the template files into the current working directory with [`degit`](https://github.com/Rich-Harris/degit) and
+then install dependencies.
 
 ```bash
 npx degit baileyherbert/svelte-vite-starter

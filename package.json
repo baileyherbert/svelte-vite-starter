@@ -1,19 +1,21 @@
 {
 	"private": true,
+	"type": "module",
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
 		"preview": "vite preview"
 	},
 	"devDependencies": {
-		"@sveltejs/vite-plugin-svelte": "^1.2.0",
-		"@vitejs/plugin-legacy": "^2.3.1",
-		"autoprefixer": "^10.4.13",
-		"sass": "^1.56.1",
-		"svelte": "^3.53.1",
-		"svelte-preprocess": "^4.10.7",
-		"typescript": "^4.9.3",
-		"vite": "^3.2.4"
+		"@sveltejs/vite-plugin-svelte": "^2.0.4",
+		"@types/node": "^18.15.11",
+		"@vitejs/plugin-legacy": "^4.0.2",
+		"autoprefixer": "^10.4.14",
+		"sass": "^1.60.0",
+		"svelte": "^3.58.0",
+		"svelte-preprocess": "^5.0.3",
+		"typescript": "^5.0.3",
+		"vite": "^4.2.1"
 	},
 	"browserslist": [
 		"defaults"

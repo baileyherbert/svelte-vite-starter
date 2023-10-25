@@ -67,7 +67,7 @@ will be added to the bundle in the order specified. Svelte's styles will always 
 
 ### Browsers list
 
-The bundle will be compiled to run on the browsers specified in `package.json`:
+The bundle will be transpiled to run on the browsers specified in `package.json`:
 
 ```json
 "browserslist": [
@@ -80,7 +80,7 @@ If you wish to customize this, please refer to the list of
 
 ### Babel customization
 
-Production builds are compiled with Babel automatically. If you wish to disable it, edit the `vite.config.ts` file:
+Production builds are transpiled with Babel automatically. If you wish to disable this, edit the `vite.config.ts` file:
 
 ```ts
 const useBabel = false;

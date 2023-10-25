@@ -32,38 +32,30 @@ const config = <UserConfig> defineConfig({
 		svelte({
 			emitCss: production,
 			preprocess: sveltePreprocess(),
-			compilerOptions: {
-				dev: !production,
-			},
-
-			hot: !production ? {
-				injectCss: true,
-				partialAccept: true
-			} : false
 		}),
 	],
 	server: {
 		host: 'localhost',
-		port: 5000
+		port: 5000,
 	},
 	build: {
-		sourcemap: sourceMapsInProduction
+		sourcemap: sourceMapsInProduction,
 	},
 	css: {
 		postcss: {
 			plugins: [
-				autoprefixer()
-			]
-		}
-	}
+				autoprefixer(),
+			],
+		},
+	},
 });
 
 // Babel
 if (useBabel) {
 	config.plugins?.unshift(
 		legacy({
-			targets: pkg.browserslist
-		})
+			targets: pkg.browserslist,
+		}),
 	);
 }
 
@@ -73,17 +65,17 @@ const aliases = tsconfig.compilerOptions.paths;
 for (const alias in aliases) {
 	const paths = aliases[alias].map((p: string) => path.resolve(__dirname, p));
 
-	// Our tsconfig uses glob path formats, whereas webpack just wants directories
-	// We'll need to transform the glob format into a format acceptable to webpack
+	// Our tsconfig uses glob path formats, whereas vite just wants directories
+	// We'll need to transform the glob format into a format acceptable to vite
 
-	const wpAlias = alias.replace(/(\\|\/)\*$/, '');
-	const wpPaths = paths.map((p: string) => p.replace(/(\\|\/)\*$/, ''));
+	const viteAlias = alias.replace(/(\\|\/)\*$/, '');
+	const vitePaths = paths.map((p: string) => p.replace(/(\\|\/)\*$/, ''));
 
 	if (!config.resolve) config.resolve = {};
 	if (!config.resolve.alias) config.resolve.alias = {};
 
-	if (config.resolve && config.resolve.alias && !(wpAlias in config.resolve.alias)) {
-		config.resolve.alias[wpAlias] = wpPaths.length > 1 ? wpPaths : wpPaths[0];
+	if (config.resolve && config.resolve.alias && !(viteAlias in config.resolve.alias)) {
+		config.resolve.alias[viteAlias] = vitePaths.length > 1 ? vitePaths : vitePaths[0];
 	}
 }
 

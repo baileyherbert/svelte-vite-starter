@@ -9,7 +9,7 @@
 		"forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
-		"baseUrl": "src",
+		"baseUrl": ".",
 		"paths": {
 			"src/*": ["src/*"]
 		}
